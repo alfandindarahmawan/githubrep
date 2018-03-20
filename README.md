@@ -1,75 +1,66 @@
-# TASK 1 Topic Extractor
+# TASK 2 Topic Extractor
 ## Overview
-This code can be used to extract a topic on a document/article with supervised learning model. The workflow of each model is roughly divided in four parts: preprocessing, feature extraction, train a model, test a model and evaluate model.
+This code can be used to extract a topic on a document/article with unsupervised model. This model uses Latent Dirichtlet Allocation (LDA). The workflow of each model is roughly divided in two parts: preprocessing and topic extraction .
 
 ## Dependencies
 Topic Extractor:
 1) Python 3.5
-2) pandas=0.22.0
+2) pandas 0.22.0
 3) nltk 3.2.5
 4) regex
 5) codecs
 6) preprocessor 1.2.3
+7) gensim v3.4.0
 
 ## Input
-to build topic extractor model takes a `.csv` document as input. Each line must consist of three columns: 
+to build topic extractor model takes a `.csv` document as input. Each line must consist of article_content columns: 
 
     Column 1) article_id: unique id of the article
     Column 2) article_topic: main topic of the article
-    Column 3) article_content: content of the article
-
-See `ds_asg_data.csv` for an example.
-
+    
 ## How to run \& output
 
-To run this topic extractor model, see the below example.
+To run this topic extractor, see the below example.
 
 ```
-$ python task1Classification.py -h
-
+$ python task2LDATopicExtractor.py -h
 Options:
-h, --help      show this help message and exit
+  -h, --help           show this help message and exit
 
-  Train Topic Extraction Model:
-    Usage: task1Classification.py -f [YOURFILE] -m -e
-    
-    -f FILETRAIN  Dataset Location(file must be have article_content and
-                  article_topic)
-    -m            Train Model and Save Model to classificationTask1.Pikle
-    -e            Evaluation Model
+   Topic Extractor With LDA :
+    Usage: task2LDATopicExtractor.py -f [YOURFILE] -t [NUMBER OF TOPIC]
 
-  Test Topic Extraction Model:
-    Usage: task1Classification.py -d [YOURFILE] -t
-    
-    -d FILETEST   Dataset Location(file must be have article_content and
-                  article_id)
-    -t            Test To Predict Topic
+    -f FILE            Dataset Location(file must be have article_content)
+    -t NUM_TOPIC       Number of topics to be extracted
 
 ```
 
-So for Train Topic Extraction Model example :
+So for Topic Extractor With LDA example :
 
 ```
-$ python task1Classification.py -f ds_asg_data.csv -m -e
+$ python task2LDATopicExtractor.py -f ds_asg_data.csv -t 29
 
-Preprocessing ............ 
-Training Topic Model .......... 
-Your Model Save To classificationTask1.pkl
+Number of Topic = 29
+Topic - 0  =  0.065*"darah" + 0.036*"usia" + 0.033*"ganguan" + 0.030*"pembuluh" + 0.026*"penyakit" + 0.023*"gamat" + 0.021*"jely" + 0.014*"obat" + 0.013*"pemesanan" + 0.012*"saluran" 
 
-Training Done ........
-Evaluation Model ........... 
-Topic Model Accuration = 88.48
+Topic - 1  =  0.046*"negara" + 0.018*"pasukan" + 0.016*"korea" + 0.016*"presiden" + 0.015*"belanda" + 0.014*"trump" + 0.012*"utara" + 0.010*"militer" + 0.009*"amerika" + 0.008*"dunia" 
 
-```
+Topic - 2  =  0.030*"orang" + 0.015*"senjata" + 0.013*"luka" + 0.011*"korban" + 0.011*"amerika" + 0.011*"serangan" + 0.010*"akibat" + 0.010*"tewas" + 0.008*"kota" + 0.008*"dunia" 
 
-So for Train Topic Extraction Model example :
-```
-$ python task1Classification.py -d test_article.csv -t
+Topic - 3  =  0.024*"gol" + 0.024*"pemain" + 0.019*"laga" + 0.012*"pertandingan" + 0.012*"menit" + 0.012*"bola" + 0.011*"timnas" + 0.010*"berhasil" + 0.010*"tim" + 0.009*"united" 
 
-file test =  test_article.csv
-Predict Topic ..........
+.
+.
+.
+.
+.
 
-Result for Topic Extraction Predict Saved to resultPredict/predictTestContent.csv.csv
-Predict DONE ........ 
+
+Topic - 27  =  0.017*"kondisi" + 0.015*"kulit" + 0.014*"memiliki" + 0.013*"sakit" + 0.013*"mata" + 0.011*"obat" + 0.011*"kesehatan" + 0.009*"dokter" + 0.009*"mengalami" + 0.008*"bayi" 
+
+Topic - 28  =  0.119*"indonesia" + 0.025*"perusahaan" + 0.016*"produk" + 0.014*"online" + 0.011*"jakarta" + 0.011*"kumparan" + 0.008*"kerja" + 0.008*"bisnis" + 0.007*"digital" + 0.007*"layanan" 
+
+
+Topic Extraction Done ...... 
 
 ```
